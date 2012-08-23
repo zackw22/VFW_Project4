@@ -10,14 +10,11 @@ window.addEventListener("DOMContentLoaded", function () {
         
     
     //Get Element byID function
-    function $(x) {  
+    function $(x){  
         var theElement = document.getElementById(x);    
         return theElement;
     }
-    
-
     //Create select field
-
     function makeTask() {
         var formTag = document.getElementsByTagName("form"),
             selectLi = $("select"),
@@ -39,9 +36,9 @@ window.addEventListener("DOMContentLoaded", function () {
     function getSelectedRadio() {
         var radios = document.forms[0].ttopic;
         console.log(radios);
-        for (var i=0; i<radios.length; i++) {
+        for (var i = 0; i<radios.length; i++) {
             if (radios[i].checked) {
-                topicValue= radios[i].value;
+                topicValue = radios[i].value;
             
             }
         }
@@ -50,17 +47,17 @@ window.addEventListener("DOMContentLoaded", function () {
     function toggleControls(n){
         switch(n){
                 case "on":
-                    $("taskForm").style.display= "none";
-                    $("clear").style.display="inline";
-                    $("view").style.display= "none";
-                    $("addNew").style.display= "inline";
+                    $("taskForm").style.display = "none";
+                    $("clear").style.display ="inline";
+                    $("view").style.display = "none";
+                    $("addNew").style.display = "inline";
                     break;
                 case "off":
-                    $("taskForm").style.display= "block";
-                    $("clear").style.display="inline";
-                    $("view").style.display= "inline";
-                    $("addNew").style.display= "none";
-                    $("items").style.display= "none";
+                    $("taskForm").style.display = "block";
+                    $("clear").style.display ="inline";
+                    $("view").style.display = "inline";
+                    $("addNew").style.display = "none";
+                    $("items").style.display = "none";
                     break;
                 default:
                     return false;
@@ -73,18 +70,18 @@ window.addEventListener("DOMContentLoaded", function () {
     function storeData(key){
         //If there is no key this means this is a brand new item and need a new key
         if(!key){
-            var id               =Math.floor(Math.random()*1000001);
+            var id               = Math.floor(Math.random()*1000001);
         }else{
-            id= key;
+            id = key;
         }
         getSelectedRadio();
-        var item         ={};
-            item.task        =["Task Type:", $("select").value];
-            item.tdate       =["Date:", $("tdate").value];
-            item.tname       =["Assign Task:", $("tname").value];
-            item.tcomments   =["Comments:", $("tcomments").value];
-            item.trating     =["Rating:", $("rating").value];
-            item.ttopic      =["Task Topic:",topicValue];
+        var item         = {};
+            item.task        = ["Task Type:", $("select").value];
+            item.tdate       = ["Date:", $("tdate").value];
+            item.tname       = ["Assign Task:", $("tname").value];
+            item.tcomments   = ["Comments:", $("tcomments").value];
+            item.trating     = ["Rating:", $("rating").value];
+            item.ttopic      = ["Task Topic:",topicValue];
 
         //Saved Data
 
@@ -98,27 +95,27 @@ window.addEventListener("DOMContentLoaded", function () {
                 alert ("There is no data in Local Storage so default was added.");
                 autoFillData ();
             }
-                var makeDiv= document.createElement("div");
+                var makeDiv = document.createElement("div");
                 makeDiv.setAttribute("id","items");
-                var makeList= document.createElement("ul");
+                var makeList = document.createElement("ul");
                 makeDiv.appendChild(makeList);
                 document.body.appendChild(makeDiv);
-                $("items").style.display= "block";
-                for(var i=0, j=localStorage.length; i<j; i++){
-                    var makeLi= document.createElement("li");
-                    var linksLi= document.createElement("li");
+                $("items").style.display = "block";
+                for(var i=0, j = localStorage.length; i<j; i++){
+                    var makeLi = document.createElement("li");
+                    var linksLi = document.createElement("li");
                     makeList.appendChild(makeLi);
-                    var key= localStorage.key(i);
-                    var value= localStorage.getItem(key);
+                    var key = localStorage.key(i);
+                    var value = localStorage.getItem(key);
                     //Convert the string from local storage value back to an object
                     var obj= JSON.parse(value);
-                    var makeSubList= document.createElement("ul");
+                    var makeSubList = document.createElement("ul");
                     makeLi.appendChild(makeSubList);
                     getImage (obj.task[1], makeSubList);
                     for(var n in obj){
-                        var makeSubli= document.createElement("li");
+                        var makeSubli = document.createElement("li");
                         makeSubList.appendChild(makeSubli);
-                        var optSubText= obj[n][0]+ "" +obj[n][1];
+                        var optSubText = obj[n][0]+ "" +obj[n][1];
                         makeSubli.innerHTML=optSubText;
                         makeSubList.appendChild(linksLi);
                     }
@@ -128,12 +125,12 @@ window.addEventListener("DOMContentLoaded", function () {
         }
         
         //Get the image for the right category
-        fucntion getImage (catName, makeSublist) {
+        function getImage(catName, makeSublist) {
             var imageLi = document.createElement ("li");
-            makeSubli.appendChild (imageLi);
-            var newImage = document.createElement ("image");
-            var setSrc = newImage.setAttribute ("src", "images/"+ catName + ".png");
-            imageLi.appendChild (newImage);
+            makeSublist.appendChild (imageLi);
+            var newImg = document.createElement ("image");
+            var setSrc = newImg.setAttribute ("src", "images/"+ catName + ".png");
+            imageLi.appendChild (newImg);
         }
         //Autofill Populate Local Storage
             function autoFillData () {
@@ -145,28 +142,28 @@ window.addEventListener("DOMContentLoaded", function () {
         //Make Item links 
         function makeItemLinks(key, linksLi){
             //add edit single item link
-            var editLink= document.createElement("a");
-            editLink.href= "#";
-            editLink.key= key;
-            var editText= "Edit Task";
+            var editLink = document.createElement("a");
+            editLink.href = "#";
+            editLink.key = key;
+            var editText = "Edit Task";
             editLink.addEventListener("click", editItem);
-            editLink.innerHTML= editText;
+            editLink.innerHTML = editText;
             linksLi.appendChild(editLink);
             
-            var breakTag= document.createElement("br");
+            var breakTag = document.createElement("br");
             linksLi.appendChild(breakTag);
             
             var deleteLink= document.createElement("a");
-                deleteLink.href= "#";
-            deleteLink.key= key;
-            var deleteText= "Delete Task";
+                deleteLink.href = "#";
+            deleteLink.key = key;
+            var deleteText = "Delete Task";
             deleteLink.addEventListener("click", clearItem);
-            deleteLink.innerHTML= deleteText;
+            deleteLink.innerHTML = deleteText;
             linksLi.appendChild(deleteLink);
         }
         
         function editItem(){
-            var value= localStorage.getItem(this.key);
+            var value = localStorage.getItem(this.key);
             var item= JSON.parse(value);
             
             toggleControls("off");
@@ -185,13 +182,13 @@ window.addEventListener("DOMContentLoaded", function () {
 
             }
             
-            
-        }
-        */
+           
+        }*/
+        
         function deleteItem(){
             var ask= confirm("Are you sure you want to delete this task.");
             if(ask){
-                localStorage.removeItem(this.key);
+                localStorage.removeItem(this.key),
                 window.location.reload();
                 return false;
             }else{
@@ -203,8 +200,8 @@ window.addEventListener("DOMContentLoaded", function () {
         function clearLocal(){
             if (localStorage.length === 0){
             alert("There are no tasks to clear.");
-           }else{
-            localStorage.clear();
+            }else{
+            localStorage.clear(),
             alert("All tasks have been cleared.");
             window.location.reload();
             return false;

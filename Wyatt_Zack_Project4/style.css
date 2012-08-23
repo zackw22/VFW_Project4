@@ -48,6 +48,7 @@ legend{
     color:#000;
     font-size: 24px;
     font-weight: bold;
+    text-align: center;
 }
 
 span{
@@ -61,7 +62,7 @@ nav{
 a{
     margin: 5px 1px;
     padding: 5px 2px;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     color: #000;
 }
